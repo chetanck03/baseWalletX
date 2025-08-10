@@ -5,6 +5,11 @@ import toast from 'react-hot-toast'
 import EVMTransactionHistory from './EVMTransactionHistory'
 import { getBlockchainConfig, getNetworkConfig } from '../../lib/networks'
 import { getEVMBalance, sendEVMTransaction } from '../../lib/evmWalletUtils'
+import { 
+  getContractWalletBalance, 
+  sendETHThroughContract,
+  WALLET_MANAGER_ADDRESS 
+} from '../../lib/contractUtils'
 import baseLogo from '../../assests/base-logo.svg'
 import polygonLogo from '../../assests/polygon-matic-logo.svg'
 import avalancheLogo from '../../assests/avalanche-avax-logo.svg'
@@ -33,6 +38,11 @@ function EVMTransaction({ walletData, blockchain }) {
   })
   const [sending, setSending] = useState(false)
   const [transactionStatus, setTransactionStatus] = useState('')
+  
+  // Contract mode state - automatically use contract for Base Sepolia
+  const [useContract, setUseContract] = useState(() => {
+    return blockchain === 'base' && network === 'sepolia' && WALLET_MANAGER_ADDRESS
+  })
 
   const blockchainConfig = getBlockchainConfig(blockchain)
   const currentNetworkConfig = getNetworkConfig(blockchain, network)
@@ -65,7 +75,12 @@ function EVMTransaction({ walletData, blockchain }) {
   const fetchBalance = async () => {
     setLoading(true)
     try {
-      const balanceEth = await getEVMBalance(blockchain, network, walletData.publicKey)
+      let balanceEth
+      if (useContract && WALLET_MANAGER_ADDRESS) {
+        balanceEth = await getContractWalletBalance(blockchain, network, walletData.publicKey)
+      } else {
+        balanceEth = await getEVMBalance(blockchain, network, walletData.publicKey)
+      }
       setBalance(balanceEth)
     } catch (error) {
       console.error('Error fetching balance:', error)
@@ -77,7 +92,13 @@ function EVMTransaction({ walletData, blockchain }) {
 
 
 
+
+
   useEffect(() => {
+    // Auto-enable contract mode for Base Sepolia
+    const shouldUseContract = blockchain === 'base' && network === 'sepolia' && WALLET_MANAGER_ADDRESS
+    setUseContract(shouldUseContract)
+    
     if (blockchainConfig) {
       fetchBalance()
     }
@@ -147,15 +168,27 @@ function EVMTransaction({ walletData, blockchain }) {
     try {
       setTransactionStatus('Sending transaction...')
 
-      // Send transaction using universal EVM function
-      const txResponse = await sendEVMTransaction(
-        blockchain,
-        network,
-        walletData.privateKey,
-        sendForm.to,
-        sendForm.amount,
-        sendForm.gasLimit
-      )
+      let txResponse
+      if (useContract && WALLET_MANAGER_ADDRESS) {
+        // Send through contract (no registration required)
+        txResponse = await sendETHThroughContract(
+          blockchain,
+          network,
+          walletData.privateKey,
+          sendForm.to,
+          sendForm.amount
+        )
+      } else {
+        // Send transaction using universal EVM function
+        txResponse = await sendEVMTransaction(
+          blockchain,
+          network,
+          walletData.privateKey,
+          sendForm.to,
+          sendForm.amount,
+          sendForm.gasLimit
+        )
+      }
 
       transactionSent = true
       toast.success(`Transaction sent! Hash: ${txResponse.hash}`)
@@ -222,6 +255,10 @@ function EVMTransaction({ walletData, blockchain }) {
   const handleNetworkChange = (newNetwork) => {
     setNetwork(newNetwork)
     setSendForm({ to: '', amount: '', gasLimit: '21000' })
+    
+    // Auto-enable contract mode for Base Sepolia
+    const shouldUseContract = blockchain === 'base' && newNetwork === 'sepolia' && WALLET_MANAGER_ADDRESS
+    setUseContract(shouldUseContract)
   }
 
   const openFaucet = () => {
@@ -255,6 +292,8 @@ function EVMTransaction({ walletData, blockchain }) {
 
   return (
     <div className="w-full max-w-2xl mx-auto mb-6 sm:mb-8 space-y-6 md:space-y-8">
+
+
       {/* Network Selection */}
       <div className="relative">
         <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-blue-400/20 rounded-xl blur opacity-75"></div>
@@ -505,6 +544,7 @@ function EVMTransaction({ walletData, blockchain }) {
         walletAddress={walletData.publicKey}
         blockchain={blockchain}
         network={network}
+        useContract={useContract}
       />
     </div>
   )

@@ -2,20 +2,66 @@ import React, { useState, useEffect } from 'react'
 import { ExternalLink, ArrowUpRight, ArrowDownLeft, RefreshCw, Clock } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { getNetworkConfig, getBlockchainConfig } from '../../lib/networks'
+import { getContractTransactionHistory } from '../../lib/contractUtils'
 
-function EVMTransactionHistory({ walletAddress, blockchain, network }) {
+function EVMTransactionHistory({ walletAddress, blockchain, network, useContract = false }) {
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(false)
 
   const fetchTransactions = async () => {
     setLoading(true)
     try {
-      await fetchEVMTransactions()
+      if (useContract) {
+        await fetchContractTransactions()
+      } else {
+        await fetchEVMTransactions()
+      }
     } catch (error) {
       console.error('Error fetching transactions:', error)
       toast.error('Failed to fetch transaction history')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchContractTransactions = async () => {
+    try {
+      const contractTxs = await getContractTransactionHistory(blockchain, network, walletAddress, 50)
+      
+      // Format contract transactions to match the expected format
+      const formattedTxs = contractTxs.map(tx => ({
+        hash: tx.hash, // This should now be the real blockchain transaction hash
+        from: tx.from,
+        to: tx.to,
+        value: parseFloat(tx.amount),
+        asset: getBlockchainConfig(blockchain)?.symbol || 'ETH',
+        tokenSymbol: getBlockchainConfig(blockchain)?.symbol || 'ETH',
+        timestamp: tx.timestamp * 1000, // Convert to milliseconds
+        type: tx.isIncoming ? 'received' : 'sent',
+        status: 'confirmed',
+        blockNumber: 0, // Contract doesn't store block numbers
+        category: 'contract'
+      }))
+      
+      setTransactions(formattedTxs.sort((a, b) => b.timestamp - a.timestamp))
+    } catch (error) {
+      console.error('Error fetching contract transactions:', error)
+      // If contract transaction history fails, show a helpful message
+      setTransactions([{
+        hash: 'contract-mode-info',
+        from: 'Smart Contract',
+        to: 'Transaction History',
+        value: 0,
+        asset: getBlockchainConfig(blockchain)?.symbol || 'ETH',
+        tokenSymbol: getBlockchainConfig(blockchain)?.symbol || 'ETH',
+        timestamp: Date.now(),
+        type: 'info',
+        status: 'info',
+        blockNumber: 0,
+        category: 'info',
+        isPlaceholder: true,
+        isContractMode: true
+      }])
     }
   }
 
@@ -206,7 +252,7 @@ function EVMTransactionHistory({ walletAddress, blockchain, network }) {
     if (walletAddress) {
       fetchTransactions()
     }
-  }, [walletAddress, blockchain, network])
+  }, [walletAddress, blockchain, network, useContract])
 
   // Listen for transaction completion events to auto-refresh
   useEffect(() => {
@@ -215,10 +261,15 @@ function EVMTransactionHistory({ walletAddress, blockchain, network }) {
 
       // Only refresh if the event is for the current blockchain
       if (eventBlockchain === blockchain) {
-        // Add a small delay to allow the transaction to be indexed
-        setTimeout(() => {
+        // Refresh immediately for contract transactions since we store them locally
+        if (useContract) {
           fetchTransactions()
-        }, 2000)
+        } else {
+          // Add a small delay for RPC transactions to allow indexing
+          setTimeout(() => {
+            fetchTransactions()
+          }, 2000)
+        }
       }
     }
 
@@ -227,7 +278,7 @@ function EVMTransactionHistory({ walletAddress, blockchain, network }) {
     return () => {
       window.removeEventListener('transactionCompleted', handleTransactionCompleted)
     }
-  }, [blockchain])
+  }, [blockchain, useContract])
 
   const openExplorer = (hashOrType) => {
     const networkConfig = getNetworkConfig(blockchain, network)
@@ -327,45 +378,68 @@ function EVMTransactionHistory({ walletAddress, blockchain, network }) {
         ) : (
           <div className="space-y-3 sm:space-y-4">
             {transactions.map((tx, index) => {
-              // Handle placeholder transaction for non-Alchemy RPCs
+              // Handle placeholder transaction for non-Alchemy RPCs or contract mode
               if (tx.isPlaceholder) {
+                const isContractMode = tx.isContractMode
+                const borderColor = isContractMode ? 'border-green-600/30' : 'border-blue-600/30'
+                const bgColor = isContractMode ? 'bg-green-600/10' : 'bg-blue-600/10'
+                const iconColor = isContractMode ? 'bg-green-600/20 text-green-400 border-green-600/30' : 'bg-blue-600/20 text-blue-400 border-blue-600/30'
+                const textColor = isContractMode ? 'text-green-300' : 'text-blue-300'
+                const subTextColor = isContractMode ? 'text-green-400/80' : 'text-blue-400/80'
+                const buttonColor = isContractMode ? 'bg-green-600/20 hover:bg-green-600/30 text-green-400 hover:text-green-300 border-green-600/30' : 'bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 hover:text-blue-300 border-blue-600/30'
+                
                 return (
                   <div key={tx.hash || index} className="relative">
-                    <div className="relative flex flex-col p-4 sm:p-5 border border-blue-600/30 rounded-xl bg-blue-600/10 gap-4">
+                    <div className={`relative flex flex-col p-4 sm:p-5 border ${borderColor} rounded-xl ${bgColor} gap-4`}>
                       <div className="flex items-center gap-3">
-                        <div className="p-2.5 sm:p-3 rounded-full bg-blue-600/20 text-blue-400 border border-blue-600/30">
+                        <div className={`p-2.5 sm:p-3 rounded-full ${iconColor}`}>
                           <ExternalLink size={16} />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-blue-300 text-sm sm:text-base">
-                            {tx.txCount > 0 ? `${tx.txCount} Transaction${tx.txCount !== 1 ? 's' : ''} Found` : 'Transaction History'}
+                          <h3 className={`font-semibold ${textColor} text-sm sm:text-base`}>
+                            {isContractMode 
+                              ? 'Smart Contract Mode Active'
+                              : tx.txCount > 0 
+                                ? `${tx.txCount} Transaction${tx.txCount !== 1 ? 's' : ''} Found` 
+                                : 'Transaction History'
+                            }
                           </h3>
-                          <p className="text-xs sm:text-sm text-blue-400/80">
-                            {tx.txCount > 0 
-                              ? 'View detailed transaction history on the block explorer'
-                              : 'Transaction history will appear here after your first transaction'
+                          <p className={`text-xs sm:text-sm ${subTextColor}`}>
+                            {isContractMode
+                              ? 'New transactions will appear here after using the smart contract'
+                              : tx.txCount > 0 
+                                ? 'View detailed transaction history on the block explorer'
+                                : 'Transaction history will appear here after your first transaction'
                             }
                           </p>
                         </div>
                       </div>
                       
-                      {tx.txCount > 0 && (
-                        <div className="flex gap-3">
-                          <button
-                            onClick={() => openExplorer('address')}
-                            className="flex items-center gap-2 px-4 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 hover:text-blue-300 border border-blue-600/30 rounded-lg transition-colors text-sm font-medium"
-                          >
-                            <ExternalLink size={14} />
-                            View on Explorer
-                          </button>
-                        </div>
-                      )}
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => openExplorer('address')}
+                          className={`flex items-center gap-2 px-4 py-2.5 ${buttonColor} rounded-lg transition-colors text-sm font-medium`}
+                        >
+                          <ExternalLink size={14} />
+                          View on Explorer
+                        </button>
+                      </div>
                       
-                      <div className="text-xs text-blue-400/60 bg-blue-600/5 p-3 rounded-lg border border-blue-600/20">
-                        <p className="mb-2"><strong>About Transaction History:</strong></p>
-                        <p>• Base uses public RPC endpoints for optimal performance</p>
-                        <p>• Detailed transaction history is available on BaseScan</p>
-                        <p>• New transactions will trigger automatic balance updates</p>
+                      <div className={`text-xs ${isContractMode ? 'text-green-400/60 bg-green-600/5 border-green-600/20' : 'text-blue-400/60 bg-blue-600/5 border-blue-600/20'} p-3 rounded-lg border`}>
+                        <p className="mb-2"><strong>About {isContractMode ? 'Smart Contract' : 'Transaction'} History:</strong></p>
+                        {isContractMode ? (
+                          <>
+                            <p>• All transactions go through your deployed smart contract</p>
+                            <p>• Transaction hashes link directly to BaseScan for verification</p>
+                            <p>• Complete transaction history is stored on-chain</p>
+                          </>
+                        ) : (
+                          <>
+                            <p>• Base uses public RPC endpoints for optimal performance</p>
+                            <p>• Detailed transaction history is available on BaseScan</p>
+                            <p>• New transactions will trigger automatic balance updates</p>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

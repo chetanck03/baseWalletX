@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Wallet, GitHubLogoIcon as Github, ChevronDown } from 'lucide-react'
+import { Menu, X, Wallet, Github, ChevronDown } from 'lucide-react'
 import baseLogo from '../assests/base-logo.svg'
 
 function Navbar() {
