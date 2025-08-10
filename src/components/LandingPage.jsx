@@ -26,9 +26,9 @@ function LandingPage() {
   const logoContainerRef = useRef(null)
 
   const benefits = [
-    "Generate cryptographically secure HD wallets instantly across 6 blockchains",
-    "Revolutionary EVM shared seed - one seed phrase works on all EVM chains",
-    "Support for Ethereum, Base, Polygon, Avalanche, BNB Smart Chain & Solana",
+    "Generate cryptographically secure HD wallets instantly for Base blockchain",
+    "Revolutionary EVM shared seed technology ready for multi-chain expansion",
+    "Currently supporting Base with Ethereum, Polygon, Avalanche, BNB Smart Chain & Solana coming soon",
     "Import existing wallets with 12/24-word mnemonic validation",
     "Create unlimited addresses from single seed or generate fresh ones",
     "Seamless network switching between mainnets and testnets",
@@ -37,7 +37,7 @@ function LandingPage() {
     "Advanced temporary wallet features for maximum privacy",
     "Zero data collection - everything stays secure in your browser",
     "Professional-grade BIP39/BIP44 compliance with industry standards",
-    "Cross-chain portfolio management with unified interface"
+    "Future-ready architecture for cross-chain portfolio management"
   ]
 
   // Lightweight hover effects only
@@ -104,8 +104,8 @@ function LandingPage() {
                 </span>
               </h2>
 
-              <p className="mx-auto max-w-3xl text-sm sm:text-lg text-gray-300 leading-relaxed px-4">
-                Easily create or import Hierarchical Deterministic (HD) wallets, manage multiple addresses from a single seed phrase, and interact with Base blockchain — all within a secure, non-custodial platform supporting both testnet and mainnet networks.
+              <p className="mx-auto max-w-3xl text-xs sm:text-lg text-gray-300 leading-relaxed px-4">
+                Easily create or import Hierarchical Deterministic (HD) wallets, manage multiple addresses from a single seed phrase, and interact with <span className='text-purple-400 font-semibold'>Base Blockchain</span> — all within a secure, non-custodial platform supporting both testnet and mainnet networks. <span className="text-purple-400 font-semibold">More blockchains coming soon!</span>
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center  sm:gap-4 pt-4">
@@ -183,7 +183,7 @@ function LandingPage() {
                 </span>
               </h2>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                Build and manage HD wallets with seed phrase generation, multi-blockchain support,
+                Build and manage HD wallets with seed phrase generation, currently supporting Base blockchain with multi-blockchain expansion planned,
                 network switching, transaction management, and complete explorer integration - all in one platform.
               </p>
 
@@ -308,7 +308,7 @@ function LandingPage() {
                 {/* Bottom text */}
                 <div className="px-8 pb-6">
                   <p className="text-center text-gray-400 text-sm">
-                    Supporting multiple blockchain networks with seamless integration
+                    Currently supporting Base blockchain with multiple networks planned for future releases
                   </p>
                 </div>
               </div>

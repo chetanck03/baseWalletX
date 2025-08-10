@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Wallet, Github, ChevronDown, FileText } from 'lucide-react'
+import { Menu, X, Wallet, GitHubLogoIcon as Github, ChevronDown } from 'lucide-react'
 import baseLogo from '../assests/base-logo.svg'
 
 function Navbar() {
@@ -36,7 +36,7 @@ function Navbar() {
       }
     `
     document.head.appendChild(style)
-    
+
     return () => {
       document.head.removeChild(style)
     }
@@ -54,13 +54,13 @@ function Navbar() {
   // Handle route changes and ensure blockchain state is always in sync
   useEffect(() => {
     const savedBlockchain = localStorage.getItem('selected_blockchain')
-    
+
     // If we're on dashboard page, always show the saved blockchain
     if (location.pathname === '/dashboard') {
       if (savedBlockchain && savedBlockchain !== selectedBlockchain) {
         setSelectedBlockchain(savedBlockchain)
       }
-    } 
+    }
     // If we're not on dashboard, only clear if we actually have a selection
     else if (location.pathname !== '/dashboard' && selectedBlockchain) {
       setSelectedBlockchain('')
@@ -71,7 +71,7 @@ function Navbar() {
   useEffect(() => {
     const checkBlockchainState = () => {
       const savedBlockchain = localStorage.getItem('selected_blockchain')
-      
+
       if (location.pathname === '/dashboard') {
         // If we're on dashboard and localStorage has a blockchain but state doesn't match
         if (savedBlockchain && savedBlockchain !== selectedBlockchain) {
@@ -187,10 +187,7 @@ function Navbar() {
     setIsMenuOpen(false)
   }
 
-  const handleDocumentationClick = () => {
-    window.open('/WalletX.pdf', '_blank')
-    setIsMenuOpen(false)
-  }
+
 
   const handleHomeClick = () => {
     setIsMenuOpen(false)
@@ -362,7 +359,7 @@ function Navbar() {
                   alt="Blockchain Logo"
                   className="h-8 w-8"
                 /> */}
-            <Wallet className="h-8 w-8 text-purple-500 " />
+                <Wallet className="h-8 w-8 text-purple-500 " />
 
                 <span className="text-xl font-geist bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
                   WalletX
@@ -536,7 +533,7 @@ function Navbar() {
                           )}
                         </motion.button>
                       ))}
-                      
+
                       {/* Coming Soon Section */}
                       <div className="px-3 py-2 border-t border-neutral-700">
                         <span className="text-xs text-gray-400 font-medium">Coming Soon</span>
@@ -564,16 +561,7 @@ function Navbar() {
                 </AnimatePresence>
               </motion.div>
 
-              <motion.button
-                onClick={handleDocumentationClick}
-                className="p-2 border border-gray-600 rounded-full text-gray-300 hover:text-white hover:border-gray-400 hover:bg-gray-800/50 transition-all duration-200"
-                title="View Documentation"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FileText className="h-5 w-5" />
-              </motion.button>
+
 
               <motion.button
                 onClick={handleGithubClick}
@@ -655,7 +643,7 @@ function Navbar() {
                   variants={mobileItemVariants}
                 >
                   <div className="text-gray-400 text-sm mb-2 px-4">Select Blockchain:</div>
-                  
+
                   {/* Available Networks */}
                   <div className="space-y-2">
                     <div className="text-xs text-gray-500 px-4 mb-2">Available Networks</div>
@@ -718,17 +706,7 @@ function Navbar() {
                   className="border-neutral-700 border-t pt-6 space-y-2"
                   variants={mobileItemVariants}
                 >
-                  <button
-                    onClick={handleDocumentationClick}
-                    className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-neutral-800/50 w-full rounded-lg px-4 py-3 font-medium transition-colors duration-200"
-                    title="View Documentation"
-                  >
-                    <div className="p-1 border border-gray-600 rounded-full">
-                      <FileText className="h-4 w-4" />
-                    </div>
-                    <span>Documentation</span>
-                  </button>
-                  
+
                   <button
                     onClick={handleGithubClick}
                     className="flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-neutral-800/50 w-full rounded-lg px-4 py-3 font-medium transition-colors duration-200"

@@ -1,117 +1,95 @@
-import React, { useRef, useEffect, useState } from 'react';
-
-// Logo item component with individual hover state
-const LogoItem = ({ logo }) => {
-    const [showTooltip, setShowTooltip] = useState(false);
-
-    return (
-        <div
-            className="relative flex-shrink-0 w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 flex flex-col items-center justify-center bg-neutral-800/30 rounded-xl hover:bg-neutral-700/50 transition-all duration-300 hover:scale-105 mb-12"
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
-        >
-            <img
-                src={logo.url}
-                alt={logo.name}
-                className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain transition-all duration-300"
-            />
-            {/* Logo name tooltip on hover */}
-            <div
-                className={`absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white text-xs px-3 py-2 rounded-lg transition-all duration-300 whitespace-nowrap z-50 border border-neutral-700 shadow-lg ${showTooltip ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
-                    }`}
-            >
-                {logo.name}
-                {/* Tooltip arrow */}
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-neutral-900 border-l border-t border-neutral-700 rotate-45"></div>
-            </div>
-        </div>
-    );
-};
-
+import React from 'react';
+import { CheckCircle, Network } from 'lucide-react';
 
 // Import Base logo
 import baseLogo from '../assests/base-logo.svg';
 
 const BlockchainCarousel = () => {
-    const scrollContainerRef = useRef(null);
-    const [isHovered, setIsHovered] = useState(false);
-
-    // Auto-scroll effect with smooth animation
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const scrollSpeed = 0.5; // pixels per frame (slower for smoother movement)
-        let animationId;
-
-        const autoScroll = () => {
-            if (!isHovered && container) {
-                container.scrollLeft += scrollSpeed;
-
-                // Reset scroll position when we've scrolled through one set of logos
-                const maxScroll = container.scrollWidth / 3; // Since we have 3 copies
-                if (container.scrollLeft >= maxScroll) {
-                    container.scrollLeft = 0;
-                }
-            }
-            animationId = requestAnimationFrame(autoScroll);
-        };
-
-        animationId = requestAnimationFrame(autoScroll);
-        return () => cancelAnimationFrame(animationId);
-    }, [isHovered]);
-
-
-
-    // Base blockchain logo
-    const blockchainLogos = [
-        { name: "Base", url: baseLogo },
-        { name: "Base", url: baseLogo },
-        { name: "Base", url: baseLogo },
-        { name: "Base", url: baseLogo },
-        { name: "Base", url: baseLogo }
+    const baseNetworks = [
+        {
+            name: "Base Mainnet",
+            description: "Production network for real transactions",
+            chainId: "8453",
+            rpc: "https://mainnet.base.org",
+            explorer: "https://basescan.org",
+            features: ["Live Network", "Real ETH", "Production Ready"]
+        },
+        {
+            name: "Base Sepolia",
+            description: "Test network for development and testing",
+            chainId: "84532", 
+            rpc: "https://sepolia.base.org",
+            explorer: "https://sepolia.basescan.org",
+            features: ["Test Network", "Free ETH", "Development"]
+        }
     ];
 
-    // Triple the logos for seamless infinite scroll (more copies = smoother loop)
-    const duplicatedLogos = [...blockchainLogos, ...blockchainLogos, ...blockchainLogos];
-
     return (
-        <section className="relative py-16 bg-neutral-950 border-t border-neutral-800 overflow-hidden">
+        <section className="relative py-16 bg-neutral-950 border-t border-neutral-800">
             <div className="absolute top-0 z-[0] h-full w-full bg-neutral-900/10 bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
 
             <div className="relative z-10 container mx-auto px-4">
-                <h2 className="font-geist mx-auto bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-2xl md:text-3xl lg:text-4xl tracking-tighter text-transparent leading-tight text-center mb-12">
-                    Powered by{' '}
-                    <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                        Base Blockchain
-                    </span>
-                </h2>
-
-                {/* Infinite scroll container */}
-                <div
-                    className="relative carousel-container pb-12"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                >
-
-                    {/* Scrollable container with proper padding and overflow handling */}
-                    <div
-                        ref={scrollContainerRef}
-                        className="flex space-x-8 md:space-x-12 overflow-x-auto scrollbar-hide px-4 py-2"
-                        style={{
-                            scrollbarWidth: 'none',
-                            msOverflowStyle: 'none'
-                        }}
-                    >
-                        {duplicatedLogos.map((logo, index) => (
-                            <LogoItem key={`${logo.name}-${index}`} logo={logo} />
-                        ))}
-                    </div>
-
-                    {/* Gradient fade effects on sides */}
-                    <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-neutral-950 to-transparent pointer-events-none z-20"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-neutral-950 to-transparent pointer-events-none z-20"></div>
+                <div className="text-center mb-12">
+                    <h2 className="font-geist mx-auto bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-2xl md:text-3xl lg:text-4xl tracking-tighter text-transparent leading-tight mb-4">
+                        Powered by{' '}
+                        <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                            Base Blockchain
+                        </span>
+                    </h2>
+                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                        Built on Coinbase's Layer 2 solution - supporting both mainnet and testnet environments
+                    </p>
                 </div>
+
+                {/* Base Networks Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    {baseNetworks.map((network, index) => (
+                        <div
+                            key={network.name}
+                            className="group relative"
+                        >
+                            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="relative bg-neutral-900/50 backdrop-blur-sm border border-neutral-700 rounded-xl p-6 hover:border-neutral-600 transition-all duration-200 h-full">
+                                
+                                {/* Header with Logo */}
+                                <div className="flex items-center space-x-4 mb-4">
+                                    <div className="relative inline-block overflow-hidden rounded-full p-[2px]">
+                                        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-neutral-950 backdrop-blur-3xl">
+                                            <div className="w-10 h-10 rounded-full border border-blue-500/30 flex items-center justify-center backdrop-blur-sm">
+                                                <img src={baseLogo} alt="Base" className="w-6 h-6 object-contain" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white">{network.name}</h3>
+                                        <p className="text-gray-400 text-sm">{network.description}</p>
+                                    </div>
+                                </div>
+
+                                {/* Network Details */}
+                                <div className="space-y-3 mb-6">
+                                    <div className="flex items-center space-x-2 text-sm text-gray-300">
+                                        <Network className="h-4 w-4 text-blue-400" />
+                                        <span>Chain ID: {network.chainId}</span>
+                                    </div>
+                                </div>
+
+                                {/* Features */}
+                                <div className="space-y-2">
+                                    {network.features.map((feature, featureIndex) => (
+                                        <div key={featureIndex} className="flex items-center space-x-2 text-sm text-gray-300">
+                                            <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                                            <span>{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+               
             </div>
         </section>
     );

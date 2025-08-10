@@ -7,11 +7,11 @@ function FAQ() {
   const faqs = [
     {
       question: "What makes WalletX's EVM Shared Seed technology revolutionary?",
-      answer: "WalletX introduces industry-first EVM Shared Seed technology where one seed phrase generates identical wallet addresses across all EVM-compatible chains (Ethereum, Base, Polygon, Avalanche, BNB Smart Chain). This means your Ethereum wallet address is exactly the same on all EVM chains, simplifying multi-chain management while maintaining full BIP-44 compliance."
+      answer: "WalletX introduces industry-first EVM Shared Seed technology designed so one seed phrase will generate identical wallet addresses across all EVM-compatible chains (Ethereum, Base, Polygon, Avalanche, BNB Smart Chain). Currently supporting Base, with additional EVM chains coming soon. This will mean your wallet address is exactly the same on all EVM chains, simplifying multi-chain management while maintaining full BIP-44 compliance."
     },
     {
       question: "Which blockchain networks does WalletX support?",
-      answer: "WalletX supports 6 major blockchain networks: Ethereum (Mainnet & Sepolia), Base (Mainnet & Sepolia), Polygon (Mainnet & Amoy), Avalanche (Mainnet & Fuji), BNB Smart Chain (Mainnet & Testnet), and Solana (Mainnet & Devnet). All EVM chains share the same seed phrase technology, while Solana uses dedicated Ed25519 cryptography."
+      answer: "WalletX currently supports Base (Mainnet & Sepolia testnet) with 5 additional major blockchain networks planned for future releases: Ethereum, Polygon, Avalanche, BNB Smart Chain, and Solana. All EVM chains will share the same seed phrase technology, while Solana will use dedicated Ed25519 cryptography when implemented."
     },
     {
       question: "How secure is WalletX and where are my private keys stored?",
@@ -26,8 +26,8 @@ function FAQ() {
       answer: "Yes! WalletX supports importing existing wallets using 12 or 24-word mnemonic phrases with full BIP-39 validation. Since we use standard derivation paths, wallets imported from MetaMask, Phantom, Trust Wallet, and other standard wallets work seamlessly. Your existing wallet addresses will be identical due to our BIP-44 compliance."
     },
     {
-      question: "How does the multi-chain transaction system work?",
-      answer: "WalletX provides comprehensive transaction management across all 6 supported networks. You can send native tokens (ETH, MATIC, AVAX, BNB, SOL) with custom gas/fee settings, switch seamlessly between mainnets and testnets, access integrated testnet faucets for free development tokens, and view complete transaction history with blockchain explorer integration."
+      question: "How does the transaction system work?",
+      answer: "WalletX provides comprehensive transaction management for Base blockchain, with multi-chain support planned for future releases. You can send native ETH tokens with custom gas settings, switch seamlessly between mainnet and testnet, access integrated testnet faucets for free development tokens, and view complete transaction history with blockchain explorer integration. Additional networks (Ethereum, Polygon, Avalanche, BNB Smart Chain, Solana) coming soon."
     },
     {
       question: "Is WalletX completely free to use?",
@@ -35,7 +35,7 @@ function FAQ() {
     },
     {
       question: "What's the difference between mainnet and testnet, and why should I use testnets?",
-      answer: "Mainnets are live blockchain networks where transactions use real cryptocurrency with real value. Testnets are sandbox environments with free test tokens for development and experimentation. WalletX includes integrated testnet faucets for all supported networks, making it perfect for developers testing dApps, learning blockchain development, or trying new features risk-free."
+      answer: "Mainnets are live blockchain networks where transactions use real cryptocurrency with real value. Testnets are sandbox environments with free test tokens for development and experimentation. WalletX includes integrated testnet faucets for Base (with more networks coming soon), making it perfect for developers testing dApps, learning blockchain development, or trying new features risk-free."
     },
     {
       question: "How does WalletX ensure compatibility with existing wallet infrastructure?",
@@ -43,7 +43,7 @@ function FAQ() {
     },
     {
       question: "Can I use WalletX for DeFi, NFTs, and other Web3 applications?",
-      answer: "Absolutely! WalletX-generated wallets are fully compatible with all Web3 applications, DeFi protocols, NFT marketplaces, and dApps across all supported networks. Since we use standard wallet formats and derivation paths, you can connect to Uniswap, OpenSea, Compound, Aave, and thousands of other Web3 applications seamlessly."
+      answer: "Absolutely! WalletX-generated wallets are fully compatible with all Web3 applications, DeFi protocols, NFT marketplaces, and dApps on Base blockchain, with additional network support coming soon. Since we use standard wallet formats and derivation paths, you can connect to Base-compatible applications and thousands of other Web3 applications seamlessly once multi-chain support is implemented."
     }
   ]
 
@@ -78,7 +78,7 @@ function FAQ() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-neutral-800/30 transition-colors duration-200"
               >
-                <h3 className="text-lg font-semibold text-white pr-4">
+                <h3 className="text-base font-semibold text-white pr-4">
                   {faq.question}
                 </h3>
                 {openIndex === index ? (
@@ -90,7 +90,7 @@ function FAQ() {
 
               {openIndex === index && (
                 <div className="px-6 pb-4">
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-gray-400 text-base leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>

@@ -8,9 +8,9 @@ import {
 
 function AboutPage() {
   const benefits = [
-    "Generate cryptographically secure HD wallets instantly across 6 blockchains",
-    "Revolutionary EVM shared seed - one seed phrase works on all EVM chains",
-    "Support for Ethereum, Base, Polygon, Avalanche, BNB Smart Chain & Solana",
+    "Generate cryptographically secure HD wallets instantly for Base blockchain",
+    "Revolutionary EVM shared seed technology ready for multi-chain expansion",
+    "Currently supporting Base with Ethereum, Polygon, Avalanche, BNB Smart Chain & Solana coming soon",
     "Import existing wallets with 12/24-word mnemonic validation",
     "Create unlimited addresses from single seed or generate fresh ones",
     "Seamless network switching between mainnets and testnets",
@@ -19,7 +19,7 @@ function AboutPage() {
     "Advanced temporary wallet features for maximum privacy",
     "Zero data collection - everything stays secure in your browser",
     "Professional-grade BIP39/BIP44 compliance with industry standards",
-    "Cross-chain portfolio management with unified interface"
+    "Future-ready architecture for cross-chain portfolio management"
   ]
 
   return (
@@ -48,14 +48,14 @@ function AboutPage() {
               </h1>
 
               <p className="text-sm md:text-lg text-gray-300 mb-6 leading-relaxed max-w-4xl mx-auto">
-                WalletX revolutionizes cryptocurrency access with advanced temporary wallet technology across 
-                <span className="text-blue-400 font-semibold"> 6 major blockchain networks</span>. 
+                WalletX revolutionizes cryptocurrency access with advanced temporary wallet technology, currently supporting 
+                <span className="text-purple-400 font-semibold"> Base blockchain</span> with <span className="text-purple-400 font-semibold">6 major blockchain networks planned for future releases</span>. 
                 Like temporary phone numbers or disposable emails, but for crypto - offering professional-grade
-                HD wallet generation, revolutionary EVM shared seed technology, and complete multi-chain transaction management.
+                HD wallet generation, revolutionary EVM shared seed technology, and complete transaction management.
               </p>
 
               <p className="text-sm md:text-lg text-gray-400 mb-8 leading-relaxed max-w-3xl mx-auto">
-                Supporting <span className="text-purple-400 font-semibold">Ethereum, Base, Polygon, Avalanche, BNB Smart Chain, and Solana</span> - 
+                Currently supporting <span className="text-purple-400 font-semibold">Base blockchain</span> with <span className="text-purple-400 font-semibold">Ethereum, Polygon, Avalanche, BNB Smart Chain, and Solana coming soon</span> - 
                 perfect for testing, development, privacy-focused transactions, or when you need instant blockchain access
                 without compromising your main wallets. Built with enterprise-level security and zero data collection.
               </p>
@@ -96,13 +96,13 @@ function AboutPage() {
               <p className="text-sm md:text-lg text-gray-300 mb-6 leading-relaxed">
                 In the digital age, we use temporary phone numbers for privacy, disposable emails for security,
                 and burner accounts for anonymity. WalletX brings this revolutionary concept to cryptocurrency with
-                professional-grade temporary wallets across <span className="text-blue-400 font-semibold">6 major blockchain networks</span> 
+                professional-grade temporary wallets, currently supporting <span className="text-purple-400 font-semibold">Base blockchain</span> with <span className="text-purple-400 font-semibold">6 major blockchain networks planned</span> 
                 that don't compromise on features or security.
               </p>
               <p className="text-sm md:text-lg text-gray-300 mb-6 leading-relaxed">
-                Our groundbreaking <span className="text-purple-400 font-semibold">EVM Shared Seed technology</span> means 
-                one seed phrase generates the same wallet addresses across Ethereum, Base, Polygon, Avalanche, and BNB Smart Chain. 
-                Whether you're a developer testing multi-chain dApps, a privacy-conscious user making anonymous
+                Our groundbreaking <span className="text-purple-400 font-semibold">EVM Shared Seed technology</span> is designed so that 
+                one seed phrase will generate the same wallet addresses across Ethereum, Base, Polygon, Avalanche, and BNB Smart Chain when fully implemented. 
+                Currently supporting Base, with additional EVM chains coming soon. Whether you're a developer testing dApps, a privacy-conscious user making anonymous
                 transactions, or someone who needs instant blockchain access, WalletX provides the perfect solution.
               </p>
               <p className="text-sm md:text-lg text-gray-300 mb-8 leading-relaxed">

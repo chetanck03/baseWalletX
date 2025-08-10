@@ -84,13 +84,13 @@ function Dashboard() {
         <div className="relative z-10 container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="font-geist text-3xl bg-clip-text text-transparent bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)]">
-              Built for{' '}
+              Currently Supporting{' '}
               <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                 Base
               </span>
             </h2>
             <p className="text-sm md:text-lg text-gray-400 mb-4">
-              Experience the power of Base blockchain - Coinbase's Layer 2 solution built for speed, security, and seamless user experience
+              Currently supporting Base blockchain with more blockchains coming soon. Experience the power of Base - Coinbase's Layer 2 solution built for speed, security, and seamless user experience.
             </p>
 
             {/* Base Blockchain Info */}
@@ -104,7 +104,7 @@ function Dashboard() {
                   <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
                     Base is Coinbase's Layer 2 blockchain built on Ethereum, offering <strong className="text-white">ultra-low fees and lightning-fast transactions</strong>.
                     As an EVM-compatible chain, Base provides seamless integration with existing Ethereum tools and dApps while delivering superior performance.
-                    Perfect for DeFi, NFTs, and Web3 applications with enterprise-grade security backed by Coinbase.
+                    Perfect for DeFi, NFTs, and Web3 applications with enterprise-grade security backed by Coinbase. <strong className="text-purple-400">More blockchains will be supported in future updates.</strong>
                   </p>
                 </div>
               </div>
@@ -153,7 +153,7 @@ function Dashboard() {
                         {blockchain.features.map((feature, index) => (
                           <div key={index} className="flex items-center space-x-2 text-sm text-gray-300">
                             <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                            <span className='text-xs'>{feature}</span>
+                            <span className='text-base'>{feature}</span>
                           </div>
                         ))}
                       </div>
