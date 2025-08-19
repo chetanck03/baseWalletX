@@ -1,4 +1,9 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEyMzQ1LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4M2NlMGRjMWVhMDZlMGE5YmJjZDZmZDFkYjNlYjNmMDFjMDdiYzgxMCJ9",
+    "payload": "eyJkb21haW4iOiJiYXNlLXdhbGxldC14LnZlcmNlbC5hcHAifQ",
+    "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1b"
+  },
   "frame": {
     "version": "next",
     "imageUrl": "https://base-wallet-x.vercel.app/images/hero.png",
@@ -14,6 +19,6 @@
     }
   },
   "baseBuilder": {
-    "allowedAddresses": ["0x3ce0c810"]
+    "allowedAddresses": ["0x3ce0dc1ea06e0a9bbcd6fd1db3eb3f01c07bc810"]
   }
 }
