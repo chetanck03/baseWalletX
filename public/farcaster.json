@@ -9,6 +9,7 @@
         "version": "next",
         "imageUrl": "https://base-wallet-x.vercel.app/images/hero.png",
         "iconUrl": "https://base-wallet-x.vercel.app/favicon.ico",
+        "homeUrl": "https://base-wallet-x.vercel.app",
         "button": {
             "title": "Launch WalletX",
             "action": {
