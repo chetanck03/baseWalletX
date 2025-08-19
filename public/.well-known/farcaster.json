@@ -5,6 +5,7 @@
     "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1b"
   },
   "frame": {
+    "name": "WalletX",
     "version": "next",
     "imageUrl": "https://base-wallet-x.vercel.app/images/hero.png",
     "button": {
@@ -19,6 +20,8 @@
     }
   },
   "baseBuilder": {
-    "allowedAddresses": ["0x3ce0dc1ea06e0a9bbcd6fd1db3eb3f01c07bc810"]
+    "allowedAddresses": [
+      "0x3ce0dc1ea06e0a9bbcd6fd1db3eb3f01c07bc810"
+    ]
   }
 }
