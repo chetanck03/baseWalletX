@@ -1,0 +1,21 @@
+{
+    "frame": {
+        "version": "next",
+        "imageUrl": "https://base-wallet-x.vercel.app/images/hero.png",
+        "button": {
+            "title": "Launch WalletX",
+            "action": {
+                "type": "launch_frame",
+                "name": "WalletX",
+                "url": "https://base-wallet-x.vercel.app",
+                "splashImageUrl": "https://base-wallet-x.vercel.app/images/hero.png",
+                "splashBackgroundColor": "#000000"
+            }
+        }
+    },
+    "baseBuilder": {
+        "allowedAddresses": [
+            "0x3ce0dc1ea06e0a9bbcd6fd1db3eb3f01c07bc810"
+        ]
+    }
+}
