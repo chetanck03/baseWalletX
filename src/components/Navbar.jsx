@@ -183,7 +183,7 @@ function Navbar() {
   }, [isBlockchainDropdownOpen])
 
   const handleGithubClick = () => {
-    window.open('https://github.com/chetanck03', '_blank')
+    window.open('https://github.com/chetanck03/baseWalletX', '_blank')
     setIsMenuOpen(false)
   }
 

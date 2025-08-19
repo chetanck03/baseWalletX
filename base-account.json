@@ -1,0 +1,16 @@
+{
+  "name": "WalletX",
+  "description": "Revolutionary Multi-Chain Wallet Manager - Professional-Grade Temporary Wallet Technology for Base Ecosystem",
+  "url": "https://base-wallet-x.vercel.app",
+  "allowedOrigins": [
+    "https://base-wallet-x.vercel.app",
+    "http://localhost:5173"
+  ],
+  "smartContracts": [
+    {
+      "address": "0xd1d8344642d3dEFa36167f48f90E0D5a557A80b3",
+      "network": "base-sepolia",
+      "name": "WalletManager"
+    }
+  ]
+}
