@@ -1,13 +1,14 @@
 {
     "accountAssociation": {
-        "header": "eyJmaWQiOjQ4NzY5MiwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDNjZTBkYzFlYTA2ZTBhOWJiY2Q2ZmQxZGIzZWIzZjAxYzA3YmM4MTAifQ",
-        "payload": "eyJkb21haW4iOiJiYXNlLXdhbGxldC14LnZlcmNlbC5hcHAifQ",
-        "signature": "0xa1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456789012345678901234567890abcdef1234567890abcdef1234567890abcdef1c"
+        "header": "eyJmaWQiOjE0NDU1MywidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDNjZTBkYzFlYTA2ZTBhOWJiY2Q2ZmQxZGIzZWIzZjAxYzA3YmM4MTAifQ==",
+        "payload": "eyJkb21haW4iOiJiYXNlLXdhbGxldC14LnZlcmNlbC5hcHAifQ==",
+        "signature": "0x3fa95509b10e1da71b09e5614a62394f92944f5884ca11fa79b8673bfd5f0c533fa95509b10e1da71b09e5614a62394f92944f5884ca11fa79b8673bfd5f0c533f"
     },
     "frame": {
         "name": "WalletX",
         "version": "next",
         "imageUrl": "https://base-wallet-x.vercel.app/images/hero.png",
+        "iconUrl": "https://base-wallet-x.vercel.app/favicon.ico",
         "button": {
             "title": "Launch WalletX",
             "action": {
