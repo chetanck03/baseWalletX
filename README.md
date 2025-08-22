@@ -14,7 +14,7 @@
 
 ## 🌟 **Live Demo & Smart Contract**
 
-- **🌐 Live Application**: [WalletX on Vercel](https://base-wallet-x.vercel.app)
+- **🌐 Live Application**: [WalletX on Vercel](https://basewalletx.vercel.app)
 - **📜 Smart Contract**: `0xd1d8344642d3dEFa36167f48f90E0D5a557A80b3` (Base Sepolia Testnet)
 - **🔍 Contract Explorer**: [View on Base Sepolia](https://sepolia.basescan.org/address/0xd1d8344642d3dEFa36167f48f90E0D5a557A80b3)
 - **⚡ Alchemy Integration**: Powered by Alchemy for lightning-fast RPC calls
@@ -162,7 +162,7 @@ npm install
 npm run dev
 ```
 
-**🌐 Or try the live demo**: [WalletX Live App](https://base-wallet-x.vercel.app/)
+**🌐 Or try the live demo**: [WalletX Live App](https://basewalletx.vercel.app/)
 
 ### **🔧 Full Development Setup**
 
